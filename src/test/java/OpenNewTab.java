@@ -83,7 +83,7 @@ public class OpenNewTab
 		capabilities.setCapability("platformVersion","11.3");
 		capabilities.setCapability("deviceName","iPad Pro (12.9 inch) (2nd generation) Simulator");
 		capabilities.setCapability("deviceOrientation", "portrait");
-		capabilities.setCapability("nativeWebTap", true); // without nativeWebTab it won't click, but while it clicks, it still won't switch
+		capabilities.setCapability("nativeWebTap", true); // even with this option it won't open the new tab on Sauce sim (11.3 vs 11.4?)
 		capabilities.setCapability("browserName", "Safari");
 		capabilities.setCapability("name", getTestName());
 
@@ -98,20 +98,20 @@ public class OpenNewTab
 	{
 		System.out.println("----- open page: ");
 		driver.get("https://sauceaaron.github.io/open-new-tab/");
-		sleep(10);
+		sleep(3);
 
 		inspectWindows(driver);
 
 		System.out.println("----- click on link: ");
 		driver.findElementByTagName("a").click();
-		sleep(10);
+		sleep(3);
 
 		inspectWindows(driver);
 
 		driver.getWindowHandles().forEach( handle -> {
 			System.out.println("----- switch to: " + handle);
 			driver.switchTo().window(handle);
-			sleep(10);
+			sleep(3);
 
 			inspectWindows(driver);
 		});
