@@ -47,7 +47,7 @@ public class OpenNewTab
 		capabilities.setCapability("platformVersion", "11.4");
 		capabilities.setCapability("deviceName", "iPad Pro (12.9-inch) (2nd generation)");
 		capabilities.setCapability("browserName", "safari");
-		capabilities.setCapability("nativeWebTap", true);
+		capabilities.setCapability("nativeWebTap", true); // without nativeWebTab it won't click, but while it clicks, it still won't switch
 
 		RemoteWebDriver driver = new IOSDriver<WebElement>(url, capabilities);
 
@@ -100,26 +100,20 @@ public class OpenNewTab
 		driver.get("https://sauceaaron.github.io/open-new-tab/");
 		sleep(10);
 
-		System.out.println(driver.getWindowHandles());
-		System.out.println(driver.getWindowHandle());
-		System.out.println(driver.getTitle());
+		inspectWindows(driver);
 
 		System.out.println("----- click on link: ");
 		driver.findElementByTagName("a").click();
 		sleep(10);
 
-		System.out.println(driver.getWindowHandles());
-		System.out.println(driver.getWindowHandle());
-		System.out.println(driver.getTitle());
+		inspectWindows(driver);
 
 		driver.getWindowHandles().forEach( handle -> {
-			System.out.println("----- switch to: ");
+			System.out.println("----- switch to: " + handle);
 			driver.switchTo().window(handle);
 			sleep(10);
 
-			System.out.println(driver.getWindowHandles());
-			System.out.println(driver.getWindowHandle());
-			System.out.println(driver.getTitle());
+			inspectWindows(driver);
 		});
 	}
 
@@ -130,6 +124,13 @@ public class OpenNewTab
 		String methodname = element.getMethodName();
 
 		return classname + "." + methodname;
+	}
+
+	public void inspectWindows(RemoteWebDriver driver)
+	{
+		System.out.println(driver.getWindowHandles());
+		System.out.println(driver.getWindowHandle());
+		System.out.println(driver.getTitle());
 	}
 
 	public void sleep(int seconds)
