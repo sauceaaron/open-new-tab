@@ -83,7 +83,7 @@ public class OpenNewTab
 		capabilities.setCapability("platformVersion","11.3");
 		capabilities.setCapability("deviceName","iPad Pro (12.9 inch) (2nd generation) Simulator");
 		capabilities.setCapability("deviceOrientation", "portrait");
-		capabilities.setCapability("nativeWebTap", true);
+		capabilities.setCapability("nativeWebTap", true); // without nativeWebTab it won't click, but while it clicks, it still won't switch
 		capabilities.setCapability("browserName", "Safari");
 
 		capabilities.setCapability("name", getTestName());
