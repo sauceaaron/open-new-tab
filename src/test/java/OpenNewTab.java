@@ -16,6 +16,7 @@ public class OpenNewTab
 	static String SAUCE_USERNAME = System.getenv("SAUCE_USERNAME");
 	static String SAUCE_ACCESS_KEY = System.getenv("SAUCE_ACCESS_KEY");
 
+	static String LocalSeleniumServer = "http://localhost:4444/wd/hub";
 	static String LocalAppiumServer = "http://localhost:4723/wd/hub";
 	static String SauceAppiumServer = "https://" + SAUCE_USERNAME + ":" +SAUCE_ACCESS_KEY + "@ondemand.saucelabs.com/wd/hub";
 	static String TestObjectAppiumServer = "https://us1.appium.testobject.com/wd/hub";
@@ -23,7 +24,7 @@ public class OpenNewTab
 	@Test
 	public void inSafari_onMac_usingLocalhost() throws Exception
 	{
-		URL url = new URL("http://localhost:4444/wd/hub");
+		URL url = new URL(LocalSeleniumServer);
 
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability("browserName", "safari");
@@ -39,7 +40,7 @@ public class OpenNewTab
 	@Test
 	public void inSafari_onIPad_usingLocalhost() throws Exception
 	{
-		URL url = new URL("http://localhost:4723/wd/hub");
+		URL url = new URL(LocalAppiumServer);
 
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability("platformName", "iOS");
@@ -47,7 +48,6 @@ public class OpenNewTab
 		capabilities.setCapability("deviceName", "iPad Pro (12.9-inch) (2nd generation)");
 		capabilities.setCapability("browserName", "safari");
 		capabilities.setCapability("nativeWebTap", true);
-		capabilities.setCapability("name", getTestName());
 
 		RemoteWebDriver driver = new IOSDriver<WebElement>(url, capabilities);
 
@@ -85,7 +85,6 @@ public class OpenNewTab
 		capabilities.setCapability("deviceOrientation", "portrait");
 		capabilities.setCapability("nativeWebTap", true); // without nativeWebTab it won't click, but while it clicks, it still won't switch
 		capabilities.setCapability("browserName", "Safari");
-
 		capabilities.setCapability("name", getTestName());
 
 		RemoteWebDriver driver = new IOSDriver<WebElement>(url, capabilities);
